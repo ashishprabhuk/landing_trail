@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+body{
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
 .glow-blue {
   box-shadow: 0 0 10px rgba(0, 162, 255, 0.8);
 }

@@ -9,7 +9,7 @@ function GlobeModel() {
   const { scene } = useGLTF(blackholeModel);
   const meshRef = useRef<THREE.Object3D>(null);
   
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += delta * 0.1; // 0.5x speed rotation
     }

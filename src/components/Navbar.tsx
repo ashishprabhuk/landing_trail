@@ -1,108 +1,214 @@
-import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const location = useLocation();
-  const [gradientPos, setGradientPos] = useState(0);
+  const [currentPath, setCurrentPath] = useState("/");
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Animate gradient for "liquid glass" feel
+  // Handle scroll to show/hide background
   useEffect(() => {
-    const interval = setInterval(() => {
-      setGradientPos((pos) => (pos + 0.5) % 100);
-    }, 50);
-    return () => clearInterval(interval);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
     { path: "/", label: "Home" },
-    { path: "/Home", label: "Home" },
-    { path: "/Services", label: "Services" },
-    { path: "/Contact Us", label: "Contact Us" },
-    { path: "/About Us", label: "About Us" },
+    { path: "/services", label: "Services" },
+    { path: "/about", label: "About" },
+    { path: "/contact", label: "Contact" },
   ];
 
+  const handleNavClick = (path) => {
+    setCurrentPath(path);
+  };
+
   return (
-    <nav
-      style={{
-        position: "fixed",
-        top: "10px", // Reduced from 20px
-        left: "50%",
-        transform: "translateX(-50%)",
-        zIndex: 1000,
-        background: `linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.1) ${gradientPos}%,
-          rgba(255, 255, 255, 0.05) ${(gradientPos + 50) % 100}%
-        )`,
-        backdropFilter: "blur(16px) saturate(180%)", // Reduced blur from 20px
-        WebkitBackdropFilter: "blur(16px) saturate(180%)",
-        borderRadius: "40px", // Reduced from 50px
-        padding: "8px 16px", // Reduced from 12px 24px
-        border: "1px solid rgba(255, 255, 255, 0.15)",
-        boxShadow:
-          "inset 0 1px 1px rgba(255,255,255,0.2), 0 6px 24px rgba(0,0,0,0.2)", // Reduced shadow
-        transition: "background 0.5s ease",
-      }}
-    >
-      <div
+    <>
+      <style>{`
+        @keyframes logoGlow {
+          0% { filter: brightness(1); }
+          100% { filter: brightness(1.1); }
+        }
+        
+        @keyframes activeGlow {
+          0% { box-shadow: 0 0 15px rgba(255,255,255,0.2), inset 0 1px 2px rgba(255,255,255,0.1) !important; }
+          100% { box-shadow: 0 0 25px rgba(255,255,255,0.3), inset 0 1px 2px rgba(255,255,255,0.2) !important; }
+        }
+      `}</style>
+
+      <nav
         style={{
-          display: "flex",
-          gap: "4px", // Reduced from 6px
-          alignItems: "center",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          maxWidth: "90vw",
-          overflowX: "auto",
+          position: "fixed",
+          top: "10px",
+          left: "10px",
+          right: "10px",
+          zIndex: 1000,
+          height: "70px",
+          background: isScrolled
+            ? `
+            rgba(255, 255, 255, 0.05),
+            linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))
+          `
+            : "transparent",
+          backdropFilter: isScrolled ? "blur(20px) saturate(150%)" : "none",
+          WebkitBackdropFilter: isScrolled
+            ? "blur(20px) saturate(150%)"
+            : "none",
+          borderRadius: "35px",
+          border: isScrolled ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
+          boxShadow: isScrolled
+            ? `
+            inset 0 1px 1px rgba(255,255,255,0.1),
+            0 8px 32px rgba(0,0,0,0.1)
+          `
+            : "none",
+          transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
         }}
       >
-        {navItems.map((item) => {
-          const isActive = location.pathname === item.path;
-          return (
-            <Link
-              key={item.path}
-              to={item.path}
-              style={{
-                padding: "6px 14px", // Reduced from 10px 18px
-                borderRadius: "20px", // Reduced from 25px
-                textDecoration: "none",
-                color: "#ffffff",
-                background: isActive
-                  ? "linear-gradient(135deg, rgba(30,144,255,0.8), rgba(0,191,255,0.8))"
-                  : "rgba(255,255,255,0.05)",
-                border: isActive
-                  ? "1px solid rgba(255, 255, 255, 0.3)"
-                  : "1px solid rgba(255,255,255,0.05)",
-                fontSize: "13px", // Reduced from 14px
-                fontWeight: isActive ? "600" : "normal",
-                transition: "all 0.3s ease", // Reduced from 0.4s
-                whiteSpace: "nowrap",
-                boxShadow: isActive
-                  ? "0 0 8px rgba(30,144,255,0.5)" // Reduced from 12px
-                  : "inset 0 0 3px rgba(255,255,255,0.05)", // Reduced from 4px
-                backdropFilter: "blur(8px)", // Reduced from 10px
-              }}
-              onMouseEnter={(e) => {
-                if (!isActive) {
-                  e.currentTarget.style.background =
-                    "rgba(255,255,255,0.15)";
-                  e.currentTarget.style.boxShadow =
-                    "0 0 6px rgba(255,255,255,0.3)"; // Reduced from 8px
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive) {
-                  e.currentTarget.style.background =
-                    "rgba(255,255,255,0.05)";
-                  e.currentTarget.style.boxShadow =
-                    "inset 0 0 3px rgba(255,255,255,0.05)"; // Reduced from 4px
-                }
-              }}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: "100%",
+            padding: "0 30px",
+            position: "relative",
+          }}
+        >
+          {/* Logo */}
+          <div
+            style={{
+              fontSize: "24px",
+              fontWeight: "500",
+              color: "#ffffff",
+              letterSpacing: "-0.5px",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+            }}
+          >
+            ANDROMETA
+          </div>
+
+          {/* Center Navigation Pills */}
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: "6px",
+              background: "rgba(255, 255, 255, 0.08)",
+              padding: "6px",
+              borderRadius: "25px",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(15px)",
+              WebkitBackdropFilter: "blur(15px)",
+              boxShadow:
+                "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)",
+            }}
+          >
+            {navItems.map((item, index) => {
+              const isActive = currentPath === item.path;
+              return (
+                <button
+                  key={item.path}
+                  onClick={() => handleNavClick(item.path)}
+                  style={{
+                    padding: "6px 16px",
+                    borderRadius: "18px",
+                    border: isActive
+                      ? "1px solid rgba(255,255,255,0.2)"
+                      : "none",
+                    background: isActive
+                      ? "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))"
+                      : "transparent",
+
+                    color: "#ffffff",
+                    fontSize: "14px",
+                    fontWeight: isActive ? "600" : "500",
+                    cursor: "pointer",
+                    transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+                    whiteSpace: "nowrap",
+                    position: "relative",
+                    overflow: "hidden",
+                    boxShadow: isActive
+                      ? "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)"
+                      : "none",
+                    animation: isActive
+                      ? "activeGlow 2s ease-in-out infinite alternate"
+                      : "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background =
+                        "rgba(255,255,255,0.12)";
+                      e.currentTarget.style.transform = "translateY(-1px)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = "transparent";
+                      e.currentTarget.style.transform = "translateY(0px)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }
+                  }}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* CTA Button - Glass Effect */}
+          <button
+            style={{
+              padding: "10px 20px",
+              borderRadius: "22px",
+              border: "1px solid rgba(255,255,255,0.2)",
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
+              color: "#ffffff",
+              fontSize: "14px",
+              fontWeight: "600",
+              cursor: "pointer",
+              transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              boxShadow:
+                "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)",
+              position: "relative",
+              overflow: "hidden",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow =
+                "inset 0 1px 2px rgba(255,255,255,0.2), 0 8px 25px rgba(0,0,0,0.15)";
+              e.currentTarget.style.background =
+                "linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08))";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0px)";
+              e.currentTarget.style.boxShadow =
+                "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)";
+              e.currentTarget.style.background =
+                "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)";
+            }}
+          >
+            Get Started
+          </button>
+        </div>
+      </nav>
+    </>
   );
 }

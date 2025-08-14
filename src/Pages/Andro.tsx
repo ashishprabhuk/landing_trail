@@ -497,7 +497,7 @@
 // export default Andro;
 
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
@@ -508,7 +508,7 @@ const Andrometa = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     setCursorPosition({ x: e.clientX, y: e.clientY });
   };
   
@@ -1131,13 +1131,7 @@ const CosmicDustParticles = () => {
   return (
     <points ref={particlesRef}>
       <bufferGeometry attach="geometry">
-        <bufferAttribute
-          attach="attributes-position"
-          count={positions.length / 3}
-          array={positions}
-          itemSize={3}
-          args={[positions.length / 3, positions]}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
         attach="material"
@@ -1151,55 +1145,6 @@ const CosmicDustParticles = () => {
   );
 };
 
-// Asteroid Belt Component
-const AsteroidBelt = () => {
-  // SSR-safe window check
-  const [width, setWidth] = useState(1920);
-  
-  useEffect(() => {
-    setWidth(window.innerWidth);
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  
-  const asteroids = React.useMemo(() => Array.from({ length: 50 }).map((_, i) => ({
-    id: i,
-    x: Math.random() * width,
-    y: Math.random() * 50,
-    size: Math.random() * 3 + 1,
-    speed: Math.random() * 2 + 0.5,
-    delay: Math.random() * 5
-  })), [width]);
-
-  return (
-    <div className="absolute inset-0">
-      {asteroids.map((asteroid) => (
-        <motion.div
-          key={asteroid.id}
-          initial={{ x: asteroid.x, y: asteroid.y, opacity: 0 }}
-          animate={{ 
-            x: asteroid.x + width,
-            y: asteroid.y + (Math.random() * 40 - 20),
-            opacity: [0, 1, 1, 0]
-          }}
-          transition={{
-            duration: asteroid.speed * 10,
-            delay: asteroid.delay,
-            repeat: Infinity,
-            repeatDelay: Math.random() * 10
-          }}
-          className="absolute rounded-full bg-gray-400"
-          style={{
-            width: `${asteroid.size}px`,
-            height: `${asteroid.size}px`,
-            boxShadow: '0 0 5px rgba(0, 162, 255, 0.8)'
-          }}
-        />
-      ))}
-    </div>
-  );
-};
 
 // Galaxy Model Component
 const GalaxyModel = () => {
