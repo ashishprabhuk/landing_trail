@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logo from "../assets/AndroMetaSideTransparent.png";
 
 export default function Navbar() {
   const [currentPath, setCurrentPath] = useState("/");
@@ -79,24 +80,31 @@ export default function Navbar() {
           }}
         >
           {/* Logo */}
-          <div
-            style={{
-              fontSize: "24px",
-              fontWeight: "500",
-              color: "#ffffff",
-              letterSpacing: "-0.5px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-            }}
-          >
-            ANDROMETA
-          </div>
+          {/* Logo */}
+<div
+  style={{
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = "scale(1.05)";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = "scale(1)";
+  }}
+>
+  <img
+    src={logo}
+    alt="AndroMeta Logo"
+    style={{
+      height: "45px", // adjust as needed
+      width: "auto",
+      display: "block",
+      objectFit: "contain",
+    }}
+  />
+</div>
+
 
           {/* Center Navigation Pills */}
           <div

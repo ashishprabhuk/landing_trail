@@ -14,8 +14,8 @@ const services = [
     icon: "💻",
   },
   {
-    title: "Cybersecurity",
-    text: "Advanced security solutions to keep your digital assets safe and compliant.",
+    title: "Technology Consulting",
+    text: "Expert guidance for digital transformation, IT strategy, and technology adoption.",
     icon: "🛡️",
   },
   {
@@ -41,24 +41,41 @@ export default function WhatWeDo() {
       <div className="grid grid-cols-1 md:grid-cols-12 items-center gap-12">
         {/* Left: Heading + Services */}
         <div className="md:col-span-7 text-center md:text-left px-4 md:px-8">
-          <h2 className="text-3xl font-bold mb-4">What We Do</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto md:mx-0">
-            At Andrometa, we offer end-to-end digital solutions designed to help you thrive in the modern business landscape.
-          </p>
+  <h2 className="text-3xl font-bold mb-4 text-white drop-shadow-lg">What We Do</h2>
+  <p className="text-gray-300 max-w-2xl mx-auto md:mx-0">
+    At Andrometa, we offer end-to-end digital solutions designed to help you thrive in the modern business landscape.
+  </p>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-8 mt-12">
-            {services.map((service, i) => (
-              <div
-                key={i}
-                className="p-6 bg-white/10 backdrop-blur-lg rounded-xl shadow hover:scale-105 transition"
-              >
-                <div className="text-4xl mb-4">{service.icon}</div>
-                <h3 className="font-semibold text-lg">{service.title}</h3>
-                <p className="text-sm text-gray-300 mt-2">{service.text}</p>
-              </div>
-            ))}
-          </div>
+  <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-4 mt-4">
+    {services.map((service, i) => (
+      <div
+        key={i}
+        className="p-6 rounded-2xl relative group overflow-hidden
+                   bg-white/10 backdrop-blur-xl border border-white/20
+                   shadow-lg hover:shadow-2xl transition-all duration-500
+                   hover:scale-105"
+      >
+        {/* Glow gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition duration-500" />
+
+        {/* Icon */}
+        <div className="text-4xl mb-4 text-white">{service.icon}</div>
+
+        {/* Title */}
+        <h3 className="font-semibold text-lg text-white">{service.title}</h3>
+
+        {/* Description */}
+        <p className="text-sm text-gray-300 mt-2">{service.text}</p>
+
+        {/* Hover light effect */}
+        <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition duration-500">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-2xl blur-2xl" />
         </div>
+      </div>
+    ))}
+  </div>
+</div>
+
 
         {/* Right: SVG graphic aligned to the screen edge */}
         <div className="md:col-span-5 max-h-220 flex justify-end md:pr-0 pr-0">
@@ -78,7 +95,7 @@ export default function WhatWeDo() {
           <img
             src={devices}
             alt="Multi-device application development"
-            className="w-full h-auto md:max-w-[480px]"
+            className="w-full h-auto md:max-w-[500px]"
             loading="lazy"
           />
         </div>
