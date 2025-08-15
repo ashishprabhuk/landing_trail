@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import footerVideo from "../assets/q-c3d7becf.webm"; 
 
 export default function RequestQuote() {
   const [formData, setFormData] = useState({
@@ -58,7 +59,7 @@ export default function RequestQuote() {
   };
 
   return (
-    <section className="py-20 text-white">
+    <section className="pt-20 text-white">
       <div className="max-w-4xl mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold mb-4">Let's turn your ideas into action</h2>
         <p className="text-gray-400 mb-8">
@@ -154,6 +155,14 @@ export default function RequestQuote() {
           )}
         </div>
       </div>
+      <video
+    src={footerVideo}
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="left-1/2 top-1/2 w-full h-[400px] object-cover opacity-50"
+  />
     </section>
   );
 }
