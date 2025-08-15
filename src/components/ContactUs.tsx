@@ -50,7 +50,7 @@
 //   };
 
 //   return (
-//     <section 
+//     <section
 //       className="py-20 text-white min-h-screen"
 //     >
 //       <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
@@ -73,7 +73,7 @@
 //         </div>
 
 //         {/* Form */}
-//         <form 
+//         <form
 //           onSubmit={handleSubmit}
 //           className="p-8 space-y-6 rounded-3xl border"
 //           style={{
@@ -89,7 +89,7 @@
 //               WebkitBackdropFilter: "blur(10px)",
 //               boxShadow:
 //                 "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)",
-              
+
 //           }}
 //         >
 //           <input
@@ -119,10 +119,10 @@
 //             required
 //             className="w-full bg-transparent border border-white/20 p-4 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 resize-none"
 //           />
-          
+
 //           {/* Status Messages */}
 //           {submitStatus === 'success' && (
-//             <div 
+//             <div
 //               className="text-green-300 text-sm p-3 rounded-xl border border-green-400/20"
 //               style={{
 //                 background: "rgba(34, 197, 94, 0.1)",
@@ -133,7 +133,7 @@
 //             </div>
 //           )}
 //           {submitStatus === 'error' && (
-//             <div 
+//             <div
 //               className="text-red-300 text-sm p-3 rounded-xl border border-red-400/20"
 //               style={{
 //                 background: "rgba(239, 68, 68, 0.1)",
@@ -143,13 +143,13 @@
 //               ❌ Error sending message. Please try again.
 //             </div>
 //           )}
-          
-//           <button 
+
+//           <button
 //             type="submit"
 //             disabled={isSubmitting}
 //             className={`px-8 py-4 rounded-2xl w-full font-semibold text-lg transition-all duration-300 transform ${
-//               isSubmitting 
-//                 ? 'cursor-not-allowed opacity-50' 
+//               isSubmitting
+//                 ? 'cursor-not-allowed opacity-50'
 //                 : 'hover:scale-[1.02] active:scale-[0.98]'
 //             }`}
 //             style={{
@@ -165,7 +165,7 @@
 //               WebkitBackdropFilter: "blur(10px)",
 //               boxShadow:
 //                 "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)",
-              
+
 //             }}
 //           >
 //             {isSubmitting ? 'Sending...' : 'Submit'}
@@ -175,7 +175,6 @@
 //     </section>
 //   );
 // }
-
 
 import React, { useState } from "react";
 import { Canvas } from "@react-three/fiber";
@@ -253,7 +252,6 @@ export default function ContactUs() {
   return (
     <section className="py-20 text-white min-h-screen">
       <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-        
         {/* Left Side - Contact Form */}
         <div>
           <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
@@ -261,7 +259,8 @@ export default function ContactUs() {
           </h2>
           <div className="space-y-3 text-lg mb-6">
             <p className="text-gray-300 flex items-center gap-3">
-              <span className="text-2xl">📞</span> +91 63742 55143 / +91 93455 67780
+              <span className="text-2xl">📞</span> +91 63742 55143 / +91 93455
+              67780
             </p>
             <p className="text-gray-300 flex items-center gap-3">
               <span className="text-2xl">📧</span> business@andrometa.in
@@ -338,48 +337,37 @@ export default function ContactUs() {
         </div>
 
         {/* Right Side - 3D Scene */}
-        {/* <div className="w-full h-[500px]">
-          <Canvas camera={{ position: [0, 0, 5] }}>
+        <div className="w-full h-[500px] overflow-hidden">
+          <Canvas camera={{ position: [1, 0, 5], fov: 50 }}>
             <ambientLight intensity={0.3} color="#4a90e2" />
-            <pointLight position={[10, 10, 10]} intensity={1.5} color="#ff6b6b" />
-            <pointLight position={[-10, -10, -10]} intensity={1} color="#4ecdc4" />
+            <pointLight
+              position={[10, 10, 10]}
+              intensity={1.5}
+              color="#191631"
+            />
+            <pointLight
+              position={[-10, -10, -10]}
+              intensity={1}
+              color="#4ecdc4"
+            />
             <spotLight
               position={[0, 10, 0]}
               angle={0.3}
               penumbra={1}
               intensity={2}
-              color="#f7b731"
+              color="#191631"
               castShadow
             />
             <WindyModel />
-            <OrbitControls enableZoom={true} enablePan={true} />
+            <OrbitControls
+              enableZoom={true}
+              enablePan={false}
+              minDistance={2.5}
+              maxDistance={3}
+            />
             <Environment preset="night" />
           </Canvas>
-        </div> */}
-        <div className="w-full h-[500px] overflow-hidden">
-  <Canvas camera={{ position: [1, 0, 5], fov: 50 }}>
-    <ambientLight intensity={0.3} color="#4a90e2" />
-    <pointLight position={[10, 10, 10]} intensity={1.5} color="#ff6b6b" />
-    <pointLight position={[-10, -10, -10]} intensity={1} color="#4ecdc4" />
-    <spotLight
-      position={[0, 10, 0]}
-      angle={0.3}
-      penumbra={1}
-      intensity={2}
-      color="#f7b731"
-      castShadow
-    />
-    <WindyModel />
-    <OrbitControls
-      enableZoom={true}
-      enablePan={false}
-      minDistance={4}
-      maxDistance={4}
-    />
-    <Environment preset="night" />
-  </Canvas>
-</div>
-
+        </div>
       </div>
     </section>
   );

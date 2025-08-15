@@ -88,32 +88,33 @@ export default function TechStack() {
       </div>
 
       <style jsx>{`
-        @keyframes scroll-left {
-          0% {
-            transform: translateX(-50%);
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 
-        @keyframes scroll-right {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
+  @keyframes scroll-right {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 
-        .animate-scroll-left {
-          animation: scroll-left 40s linear infinite;
-        }
+  .animate-scroll-left {
+    animation: scroll-left 40s linear infinite;
+  }
 
-        .animate-scroll-right {
-          animation: scroll-right 40s linear infinite;
-        }
-      `}</style>
+  .animate-scroll-right {
+    animation: scroll-right 40s linear infinite;
+  }
+`}</style>
+
     </section>
   );
 }
