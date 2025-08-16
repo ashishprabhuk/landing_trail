@@ -45,12 +45,9 @@ interface WindyModelProps {
 // }
 
 
-function WindyModel({ position = [1, 0, 0], scale = 1, rotation = [0, 0, 0] }: WindyModelProps) {
+function WindyModel({ position = [1, 0, 0]}: WindyModelProps) {
     const { scene } = useGLTF(windyModel);
     const meshRef = useRef<THREE.Object3D>(null);
-    const positionM = position;
-    const scaleM = scale;
-    const rotationM = rotation;
     
     // Clip half of the model
     const clipPlane = new THREE.Plane(new THREE.Vector3(1, 0, 0), 0); // Vertical cut
@@ -60,6 +57,7 @@ function WindyModel({ position = [1, 0, 0], scale = 1, rotation = [0, 0, 0] }: W
             meshRef.current.rotation.y += delta * 0.1;
         }
     });
+    console.log(position)
     
     // Apply clipping
     scene.traverse((child: any) => {
@@ -70,6 +68,8 @@ function WindyModel({ position = [1, 0, 0], scale = 1, rotation = [0, 0, 0] }: W
     });
     
     return <primitive ref={meshRef} object={scene} scale={1} position={[1, 0, 0]} />;
-  }
+    // return <primitive ref={meshRef} object={scene} scale={1} position={posit} />;
+
+}
   
   export default WindyModel;
