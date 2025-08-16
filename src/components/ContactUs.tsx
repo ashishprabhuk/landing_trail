@@ -4,8 +4,6 @@ import { OrbitControls, Environment } from "@react-three/drei";
 import WindyModel from "./WindyModel";
 import "./ContactUs.css";
 
-
-
 export default function ContactUs() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -66,7 +64,7 @@ export default function ContactUs() {
 
   return (
     <section className="py-20 text-white min-h-screen">
-      <div className="max-w-5xl mx-auto px-4 md:px-8 mb-16">
+      <div className="max-w-5xl mx-auto px-4 md:px-40 mb-16">
         <div className="p-8 rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20 text-center space-y-6">
           <h2 className="text-2xl md:text-4xl font-bold tracking-tight">
             Got questions? Let’s connect.
@@ -82,7 +80,7 @@ export default function ContactUs() {
         </div>
       </div>
       
-      <div className="grid md:grid-cols-2 items-stretch">
+      <div className="grid md:grid-cols-1 items-stretch">
 
         {/* Left - Contact Form */}
         <div className="max-w-3xl w-full mx-auto px-4 md:px-8">
@@ -105,7 +103,7 @@ export default function ContactUs() {
           </form>
         </div>
 
-        {/* Right - 3D Half Model */}
+        {/* Right - 3D Half Model
         <div className="w-full h-[500px] md:h-auto">
           <Canvas
             camera={{ position: [1, 0, 5], fov: 50 }}
@@ -127,8 +125,7 @@ export default function ContactUs() {
             <OrbitControls enableZoom={true} enablePan={false} minDistance={2.5} maxDistance={3} />
             <Environment preset="night" />
           </Canvas>
-        </div>
-
+        </div> */}
       </div>
     </section>
 
