@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import ssmock from "../assets/mockups/ssmock.png";
 import nestoramock from "../assets/mockups/nestora.png";

@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
-import * as THREE from "three";
-import windyModel from "../assets/a_windy_day.glb?url";
+import { OrbitControls, Environment } from "@react-three/drei";
 import WindyModel from "./WindyModel";
 
 

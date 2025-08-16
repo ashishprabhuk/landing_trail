@@ -1,5 +1,4 @@
-import React from "react";
-import footerVideo from "../assets/q-c3d7becf.webm"; // your video path
+// import footerVideo from "../assets/q-c3d7becf.webm"; // your video path
 
 export default function Footer() {
   return (
