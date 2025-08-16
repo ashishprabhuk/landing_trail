@@ -3,7 +3,6 @@ import WhatWeDo from '../components/WhatWeDo';
 import ContactUs from '../components/ContactUs';
 import OurWork from '../components/OurWork';
 import TechStack from '../components/TechStack';
-import RequestQuote from '../components/RequestQuote';
 import Footer from '../components/Footer';
 
 const HomePage = () => {
@@ -13,12 +12,21 @@ const HomePage = () => {
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10">
-        <Hero/>
-        <WhatWeDo/>
-        <OurWork/>
-        <TechStack/>
-        <ContactUs/>
-        <RequestQuote/>
+        <section id="home">
+          <Hero/>
+        </section>
+        <section id="services">
+          <WhatWeDo/>
+        </section>
+        <section id="work">
+          <OurWork/>
+        </section>
+        <section id="tech">
+          <TechStack/>
+        </section>
+        <section id="contact">
+          <ContactUs/>
+        </section>
         <Footer/>
       </div>
     </div>

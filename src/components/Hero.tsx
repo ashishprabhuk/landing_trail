@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -6,16 +6,39 @@ export default function Hero() {
     x: 0.5,
     y: 0.5,
   });
+  const [time, setTime] = useState(0);
+
+  // Animation frame for orbiting effect
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const updateTime = () => {
+      setTime(prevTime => (prevTime + 0.005) % (Math.PI * 2));
+      animationFrameId = requestAnimationFrame(updateTime);
+    };
+
+    animationFrameId = requestAnimationFrame(updateTime);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   const stars = useMemo(() => {
-    const count = 40; // minimal
+    const count = 120;
     return Array.from({ length: count }, (_, i) => ({
       id: i,
-      xPct: Math.random() * 100, // across width
-      yPct: Math.random() * 65, // spread from top down towards the arc
-      sizePx: Math.random() < 0.7 ? 2 : 3,
+      // Initial positions will be around the screen
+      initialAngle: Math.random() * Math.PI * 2,
+      orbitRadius: 50 + Math.random() * 150, // base orbit radius
+      orbitSpeed: 0.2 + Math.random() * 0.3, // speed of orbit
+      phaseOffset: Math.random() * Math.PI * 2, // different starting points
+      sizePx: Math.random() < 0.7 ? 4 : 5,
       opacity: 0.35 + Math.random() * 0.45,
       drift: 6 + Math.random() * 12,
+      // Absorption properties
+      absorptionProgress: Math.random(), // 0-1 how far along absorption is
+      absorptionSpeed: 0.0005 + Math.random() * 0.001, // speed of absorption
     }));
   }, []);
 
@@ -30,26 +53,19 @@ export default function Hero() {
   function handleMouseLeave() {
     setMouse({ x: 0.5, y: 0.5 });
   }
+
+  // Arc center position (adjust these based on your actual arc position)
+  const arcCenterX = 0.5; // 50% of container
+  const arcCenterY = 0.85; // 85% from top (near bottom)
+
   return (
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex items-center justify-center min-h-screen  text-white overflow-hidden"
+      className="relative flex items-center justify-center min-h-screen text-white overflow-hidden"
     >
-      {/* <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[600px] h-[300px] bg-blue-500/30 rounded-full blur-2xl"></div>
-      
-		{/* Soft glow behind headline (wider, layered) */}
-      {/* <div
-        className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[10%] opacity-70 blur-[120px]"
-        style={{
-          width: "min(92vw, 1100px)",
-          height: "400px",
-          background:
-            "radial-gradient(ellipse 40% 25% at 20% 20%, rgba(0,178,255,0.45) 0%, rgba(0,55,78,0.08) 70%, #121223 100%)",
-        }}
-      /> */}
-
+      {/* Soft glow behind headline */}
       <div
         className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[31%] opacity-80 blur-[90px]"
         style={{
@@ -60,41 +76,67 @@ export default function Hero() {
         }}
       />
 
-      {/* Minimal interactive stars across sky */}
+      {/* Stars with orbit and absorption effect */}
       <div className="absolute inset-0 z-10 pointer-events-none">
         {stars.map((s) => {
-          const dx = (mouse.x - 0.5) * s.drift;
-          const dy = (mouse.y - 0.5) * s.drift;
+          // Update absorption progress (reset if completed)
+          const absorptionProgress = (s.absorptionProgress + s.absorptionSpeed) % 1;
+
+          // Calculate current orbit position
+          const orbitAngle = s.initialAngle + time * s.orbitSpeed;
+          const currentOrbitRadius = s.orbitRadius * (1 - absorptionProgress * 0.7);
+
+          // Base position (orbiting around arc center)
+          let xPct = arcCenterX * 100 + Math.cos(orbitAngle + s.phaseOffset) * currentOrbitRadius;
+          let yPct = arcCenterY * 100 + Math.sin(orbitAngle + s.phaseOffset) * currentOrbitRadius * 0.6;
+
+          // Add mouse interaction effect
+          const dx = (mouse.x - 0.5) * s.drift * (1 - absorptionProgress);
+          const dy = (mouse.y - 0.5) * s.drift * (1 - absorptionProgress);
+
+          // Scale down as they get absorbed
+          const scale = 1 - absorptionProgress * 0.7;
+
           return (
             <span
               key={s.id}
               className="absolute rounded-full bg-white/90 shadow-[0_0_6px_rgba(255,255,255,0.55)]"
               style={{
-                left: `${s.xPct}%`,
-                top: `${s.yPct}%`,
+                left: `${xPct}%`,
+                top: `${yPct}%`,
                 width: s.sizePx,
                 height: s.sizePx,
-                opacity: s.opacity,
-                transform: `translate(${dx}px, ${dy}px)`,
-                transition: "transform 120ms ease-out",
-                willChange: "transform",
+                opacity: s.opacity * (1 - absorptionProgress * 0.5),
+                transform: `translate(${dx}px, ${dy}px) scale(${scale})`,
+                transition: "transform 120ms ease-out, opacity 120ms ease-out",
+                willChange: "transform, opacity",
               }}
             />
           );
         })}
       </div>
 
-      {/* Headline */}
-      <div className="relative top-[-50px] z-10 text-center px-6">
-        <h1 className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[52px] font-medium leading-snug tracking-wide">
+      {/* Headline + Subheadline + CTA */}
+      <div className="relative top-[-60px] z-10 text-center px-6">
+        <h1 className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[60px] leading-snug tracking-wide">
           Simplify Technology
           <br />
           Amplify Efficiency
         </h1>
+
       </div>
 
-      {/* Bottom arc (new SVG with soft colored blobs) */}
-      <div className="pointer-events-none absolute bottom-[-150px] left-1/2 -translate-x-1/2 w-[95%] max-w-[1500px]">
+      {/* Bottom arc (existing SVG) */}
+      <div className="
+        pointer-events-none 
+        absolute 
+        left-1/2 -translate-x-1/2
+        w-[95%] max-w-[1500px]
+        bottom-[-150px]           /* large screen default */
+        sm:bottom-[-150px]        /* tablet+ screens */
+        bottom-[50px]             /* mobile: lift arc up behind headline */
+        scale-125 sm:scale-100    /* mobile: make arc bigger */
+      ">
         <svg
           viewBox="0 0 3551 1886"
           fill="none"
@@ -302,7 +344,20 @@ export default function Hero() {
             </linearGradient>
           </defs>
         </svg>
+        <div className="absolute z-10 bottom-[220px] left-1/2 -translate-x-1/2 w-[90%] max-w-xl text-center">
+  <p className="text-gray-300 text-[14px] sm:text-[16px] md:text-[18px] lg:text-[16px] leading-relaxed opacity-70">
+    We help businesses harness the power of technology to automate, innovate, and scale—smarter and faster.
+  </p>
+</div>
+
+
       </div>
+
     </section>
   );
 }
+
+
+
+
+
