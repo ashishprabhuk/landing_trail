@@ -1,0 +1,25 @@
+.custom-date::placeholder {
+    display: none;
+}
+
+/* Hide the browser's date hint */
+.custom-date::-webkit-datetime-edit,
+.custom-date::-webkit-inner-spin-button,
+.custom-date::-webkit-clear-button {
+  display: none;
+}
+
+/* Add custom placeholder */
+.custom-date:invalid::before {
+  content: "Target Delivery Date";
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Make sure text aligns like real input */
+.custom-date::before {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}

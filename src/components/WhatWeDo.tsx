@@ -51,7 +51,7 @@ export default function WhatWeDo() {
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition duration-500 blur-xl" />
 
                   {/* Icon */}
-                  <div className="mb-4">{service.icon}</div>
+                  <div className="mb-4 flex justify-center align-items-center lg:block">{service.icon}</div>
 
                   <h3 className="font-semibold text-lg text-white">{service.title}</h3>
                   <p className="text-sm text-gray-300 mt-2">{service.text}</p>
@@ -84,14 +84,14 @@ export default function WhatWeDo() {
         <img
           src={devices}
           alt="Multi-device application development"
-          className="w-full sm:mb-5 md:mb-5 lg:mb-5 max-w-[700px] h-auto"
+          className="w-full sm:mb-5 md:mb-5 lg:mb-5 max-w-[850px] h-auto"
           loading="lazy"
         />
 
-        <div className="-mt-12">
-          <h2 className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[60px] font-bold mb-6">
+        <div className="-mt-12 sm:-mt-10">
+          <h2 className="mt-8 lg:mt-0 text-[28px] sm:text-[24px] md:text-[36px] lg:text-[40px] font-bold mb-6">
             Can't find exactly what you're looking for?
-            <span className="block mt-2 text-blue-400">
+            <span className="block mt-2 text-blue-400 font-normal">
               We'll craft a custom solution just for you
             </span>
           </h2>

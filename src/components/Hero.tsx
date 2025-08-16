@@ -118,7 +118,7 @@ export default function Hero() {
 
       {/* Headline + Subheadline + CTA */}
       <div className="relative top-[-60px] z-10 text-center px-6">
-        <h1 className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[60px] leading-snug tracking-wide">
+        <h1 className="text-[32px] sm:text-[40px] md:text-[44px] lg:text-[60px] leading-snug tracking-wide">
           Simplify Technology
           <br />
           Amplify Efficiency
@@ -344,7 +344,7 @@ export default function Hero() {
             </linearGradient>
           </defs>
         </svg>
-        <div className="absolute z-10 bottom-[220px] left-1/2 -translate-x-1/2 w-[90%] max-w-xl text-center">
+        <div className="absolute z-10 bottom-[220px] lg:left-1/2 lg:-translate-x-1/2 lg:w-[90%] inset-x-0 px-4 mx-4 max-w-xl text-center">
   <p className="text-gray-300 text-[14px] sm:text-[16px] md:text-[18px] lg:text-[16px] leading-relaxed opacity-70">
     We help businesses harness the power of technology to automate, innovate, and scale—smarter and faster.
   </p>

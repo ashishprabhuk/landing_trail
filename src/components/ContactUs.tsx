@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import WindyModel from "./WindyModel";
+import "./ContactUs.css";
 
 
 
@@ -99,7 +100,7 @@ export default function ContactUs() {
             <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number (Include country code)*" required className="w-full bg-transparent border border-white/20 p-4 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400" />
             <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email*" required className="w-full bg-transparent border border-white/20 p-4 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400" />
             <textarea name="projectOverview" value={formData.projectOverview} onChange={handleChange} placeholder="Project Overview* (Briefly describe your needs or challenges)" rows={4} required className="w-full bg-transparent border border-white/20 p-4 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 resize-none" />
-            <input type="date" name="deliveryDate" value={formData.deliveryDate} onChange={handleChange} placeholder="Target Delivery Date" className="w-full bg-transparent border border-white/20 p-4 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400" /> {submitStatus === "success" && (<div className="text-green-300 text-sm p-3 rounded-xl border border-green-400/20"> ✅ Message sent successfully! </div>)} {submitStatus === "error" && (<div className="text-red-300 text-sm p-3 rounded-xl border border-red-400/20"> ❌ Error sending message. </div>)}
+            <input type="text" name="deliveryDate" value={formData.deliveryDate} onChange={handleChange} placeholder="Target Delivery Date (dd/mm/yyyy)" className="w-full bg-transparent border border-white/20 p-4 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400" /> {submitStatus === "success" && (<div className="text-green-300 text-sm p-3 rounded-xl border border-green-400/20"> ✅ Message sent successfully! </div>)} {submitStatus === "error" && (<div className="text-red-300 text-sm p-3 rounded-xl border border-red-400/20"> ❌ Error sending message. </div>)}
             <button type="submit" disabled={isSubmitting} className="px-8 py-4 rounded-2xl w-full font-semibold text-lg transition-all duration-300" style={{ border: "1px solid rgba(255,255,255,0.2)", background: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))", }} > {isSubmitting ? "Sending..." : "Submit"} </button>
           </form>
         </div>
