@@ -1,6 +1,5 @@
-import React from "react";
-
 // Import all images
+import "./TechStack.css"
 import ReactIcon from "/techStacks/React.png";
 import NextJSIcon from "/techStacks/NextJS.png";
 import NodeJSIcon from "/techStacks/NodeJS.png";
@@ -11,7 +10,6 @@ import AzureIcon from "/techStacks/Azure.png";
 import DockerIcon from "/techStacks/Docker.png";
 import FigmaIcon from "/techStacks/Figma.png";
 import KubernetesIcon from "/techStacks/Kubernetes.png";
-import ReactNativeIcon from "/techStacks/React.png"; // or create a separate icon
 import FlutterIcon from "/techStacks/Flutter.png";
 import FastAPIIcon from "/techStacks/FastAPI.png";
 import TensorflowIcon from "/techStacks/TensorFlow.png";
@@ -104,26 +102,6 @@ export default function TechStack() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes scroll-left {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes scroll-right {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-        .animate-scroll-left {
-          animation: scroll-left 40s linear infinite;
-        }
-        .animate-scroll-right {
-          animation: scroll-right 40s linear infinite;
-        }
-        .group:hover .group-hover\\:pause {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 }
