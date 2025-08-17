@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment } from "@react-three/drei";
-import WindyModel from "./WindyModel";
+// import { Canvas } from "@react-three/fiber";
+// import { OrbitControls, Environment } from "@react-three/drei";
+// import WindyModel from "./WindyModel";
 import "./ContactUs.css";
 
 export default function ContactUs() {
