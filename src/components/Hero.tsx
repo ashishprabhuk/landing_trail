@@ -119,9 +119,9 @@ export default function Hero() {
       {/* Headline + Subheadline + CTA */}
       <div className="relative top-[-60px] z-10 text-center px-6">
         <h1 className="text-[32px] sm:text-[40px] md:text-[44px] lg:text-[60px] leading-snug tracking-wide">
-          Simplify Technology
+          Simplify Technologyyy
           <br />
-          Amplify Efficiencyyyyy
+          Amplify Efficiency
         </h1>
 
       </div>
