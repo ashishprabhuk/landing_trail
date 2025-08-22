@@ -121,7 +121,7 @@ export default function Hero() {
         <h1 className="text-[32px] sm:text-[40px] md:text-[44px] lg:text-[60px] leading-snug tracking-wide">
           Simplify Technology
           <br />
-          Amplify Efficiency
+          Amplify Efficiencyyyyy
         </h1>
 
       </div>
