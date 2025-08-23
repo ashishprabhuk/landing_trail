@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react";
-import logo from "../assets/AndroMetaSideTransparent.png";
+import andrometa_full_logo from "../assets/AndroMetaSideTransparent.png";
+import andrometa_logo from "../assets/AndroMetaTransparent.png";
 
-export default function Navbar() {
+import ContactModal from "./ContactModal";
+
+export default function Navbar({ openModal }: { openModal: () => void }) {
   const [currentPath, setCurrentPath] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
+
       // Find which section is currently in view
-      const sections: any = navItems.map(item => document.getElementById(item.path));
+      const sections: any = navItems.map((item) =>
+        document.getElementById(item.path)
+      );
       const scrollPosition = window.scrollY + 100;
-      
+
       for (let i = sections.length - 1; i >= 0; i--) {
         if (sections[i] && scrollPosition >= sections[i].offsetTop) {
           setCurrentPath(navItems[i].path);
@@ -20,9 +26,9 @@ export default function Navbar() {
         }
       }
     };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
@@ -38,7 +44,7 @@ export default function Navbar() {
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
-        block: "start"
+        block: "start",
       });
     }
   };
@@ -73,9 +79,7 @@ export default function Navbar() {
           right: "10px",
           zIndex: 1000,
           height: "60px",
-          background: isScrolled
-            ? "rgba(255, 255, 255, 0.05)"
-            : "transparent",
+          background: isScrolled ? "rgba(255, 255, 255, 0.05)" : "transparent",
           backdropFilter: isScrolled ? "blur(20px) saturate(150%)" : "none",
           WebkitBackdropFilter: isScrolled
             ? "blur(20px) saturate(150%)"
@@ -91,7 +95,8 @@ export default function Navbar() {
           padding: "0 30px",
         }}
       >
-        {/* Logo - scrolls to top when clicked */}
+        {/* andrometa_full_logo - scrolls to top when clicked */}
+        {/* Logo - changes on scroll */}
         <div
           style={{ cursor: "pointer", transition: "all 0.3s ease" }}
           onMouseEnter={(e) => {
@@ -103,31 +108,37 @@ export default function Navbar() {
           onClick={() => handleNavClick("home")}
         >
           <img
-            src={logo}
+            src={isScrolled ? andrometa_logo : andrometa_full_logo} // 👈 conditional
             alt="AndroMeta Logo"
             style={{
-              height: "45px",
+              height: isScrolled ? "35px" : "45px",
               width: "auto",
               display: "block",
               objectFit: "contain",
+              transition: "all 0.4s ease-in-out",
+              // transition: "all 0.4s ease-in-out", // smooth fade/size transition
             }}
           />
         </div>
 
-        {/* Pills
+        {/* Pills */}
         <div
           style={{
-            display: "flex",
-            gap: "6px",
-            background: "rgba(255, 255, 255, 0.08)",
-            padding: "6px",
-            borderRadius: "25px",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            backdropFilter: "blur(15px)",
-            WebkitBackdropFilter: "blur(15px)",
-            boxShadow:
-              "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)",
-          }}
+    position: "absolute", // 👈 pull out of flexbox flow
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)", // 👈 true centering
+    display: "flex",
+    gap: "6px",
+    background: "rgba(255, 255, 255, 0.08)",
+    padding: "6px",
+    borderRadius: "25px",
+    border: "1px solid rgba(255, 255, 255, 0.1)",
+    backdropFilter: "blur(15px)",
+    WebkitBackdropFilter: "blur(15px)",
+    boxShadow:
+      "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)",
+  }}
         >
           {navItems.map((item) => {
             const isActive = currentPath === item.path;
@@ -138,9 +149,7 @@ export default function Navbar() {
                 style={{
                   padding: "6px 16px",
                   borderRadius: "18px",
-                  border: isActive
-                    ? "1px solid rgba(255,255,255,0.2)"
-                    : "none",
+                  border: isActive ? "1px solid rgba(255,255,255,0.2)" : "none",
                   background: isActive
                     ? "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))"
                     : "transparent",
@@ -161,11 +170,11 @@ export default function Navbar() {
               </button>
             );
           })}
-        </div> */}
+        </div>
 
         {/* CTA - scrolls to contact section */}
         <button
-          onClick={() => handleNavClick("contact")}
+          onClick={openModal}
           style={{
             padding: "10px 20px",
             borderRadius: "22px",
@@ -186,70 +195,6 @@ export default function Navbar() {
         </button>
       </nav>
 
-      <div
-        className="hidden md:flex"
-        style={{
-          position: "fixed",
-          top: "10px",
-          left: "10px",
-          right: "10px",
-          zIndex: 1000,
-          height: "60px",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "0 30px",
-        }}
-      >
-        {/* Pills */}
-        <div
-          style={{
-            display: "flex",
-            gap: "6px",
-            background: "rgba(255, 255, 255, 0.08)",
-            padding: "4px",
-            borderRadius: "25px",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            backdropFilter: "blur(15px)",
-            WebkitBackdropFilter: "blur(15px)",
-            boxShadow:
-              "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)",
-          }}
-        >
-          {navItems.map((item) => {
-            const isActive = currentPath === item.path;
-            return (
-              <button
-                key={item.path}
-                onClick={() => handleNavClick(item.path)}
-                style={{
-                  padding: "6px 16px",
-                  borderRadius: "18px",
-                  border: isActive
-                    ? "1px solid rgba(255,255,255,0.2)"
-                    : "none",
-                  background: isActive
-                    ? "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))"
-                    : "transparent",
-                  color: "#ffffff",
-                  fontSize: "14px",
-                  fontWeight: isActive ? "400" : "300",
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  boxShadow: isActive
-                    ? "inset 0 1px 2px rgba(255,255,255,0.1), 0 4px 15px rgba(0,0,0,0.1)"
-                    : "none",
-                  animation: isActive
-                    ? "activeGlow 2s ease-in-out infinite alternate"
-                    : "none",
-                }}
-              >
-                {item.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Mobile Navbar */}
       <nav
         className="flex md:hidden flex-col items-center"
@@ -260,9 +205,7 @@ export default function Navbar() {
           right: "10px",
           zIndex: 1000,
           height: "60px",
-          background: isScrolled
-            ? "rgba(255, 255, 255, 0.05)"
-            : "transparent",
+          background: isScrolled ? "rgba(255, 255, 255, 0.05)" : "transparent",
           backdropFilter: isScrolled ? "blur(20px) saturate(150%)" : "none",
           WebkitBackdropFilter: isScrolled
             ? "blur(20px) saturate(150%)"
@@ -276,11 +219,11 @@ export default function Navbar() {
           justifyContent: "center",
         }}
       >
-        {/* Logo Centered - scrolls to top when clicked */}
+        {/* andrometa_full_logo Centered - scrolls to top when clicked */}
         <div onClick={() => handleNavClick("home")}>
           <img
-            src={logo}
-            alt="AndroMeta Logo"
+            src={andrometa_full_logo}
+            alt="AndroMeta andrometa_full_logo"
             style={{
               height: "40px",
               width: "auto",
@@ -302,9 +245,7 @@ export default function Navbar() {
               style={{
                 padding: "6px 14px",
                 borderRadius: "18px",
-                border: isActive
-                  ? "1px solid rgba(255,255,255,0.2)"
-                  : "none",
+                border: isActive ? "1px solid rgba(255,255,255,0.2)" : "none",
                 background: isActive
                   ? "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))"
                   : "transparent",
@@ -326,6 +267,11 @@ export default function Navbar() {
           );
         })}
       </div>
+
+      <ContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 }
