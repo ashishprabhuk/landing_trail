@@ -50,7 +50,13 @@ function NoiseOverlay() {
   );
 }
 
-function FloatingShape({ delay = 0, duration = 20 }) {
+function FloatingShape({
+  delay = 0,
+  duration = 20,
+}: {
+  delay?: number;
+  duration?: number;
+}) {
   return (
     <div
       className="absolute w-32 h-32 rounded-full blur-3xl opacity-20 animate-pulse"
@@ -66,11 +72,14 @@ function FloatingShape({ delay = 0, duration = 20 }) {
 }
 
 export default function WhatWeDo({ openModal }: { openModal: () => void }) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener("mousemove", handleMouseMove);
@@ -79,7 +88,6 @@ export default function WhatWeDo({ openModal }: { openModal: () => void }) {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-
       {/* Magnetic cursor follower - Desktop only */}
       <div
         className="fixed w-6 h-6 bg-blue-400/30 rounded-full blur-sm pointer-events-none z-50 transition-transform duration-100 ease-out hidden lg:block"
@@ -310,7 +318,10 @@ export default function WhatWeDo({ openModal }: { openModal: () => void }) {
             />
           </div>
 
-          <button onClick={openModal} className="group relative px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-bold text-white text-base sm:text-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 active:scale-95">
+          <button
+            onClick={openModal}
+            className="group relative px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-bold text-white text-base sm:text-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 active:scale-95"
+          >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <span className="relative z-10">Get Started</span>
             <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700" />

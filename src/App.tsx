@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Navbar from './components/Navbar';
 import HomePage from './Pages/HomePage';
 import ContactModal from './components/ContactModal';
 

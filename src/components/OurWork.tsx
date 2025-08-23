@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Eye } from "lucide-react";
 import ssmock from "../assets/mockups/ssmock.png";

@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Code, BarChart3, PenTool, Lightbulb } from "lucide-react";
 
 export default function ContactIllustration() {
   return (
