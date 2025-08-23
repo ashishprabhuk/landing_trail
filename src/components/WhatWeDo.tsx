@@ -2,6 +2,7 @@ import { Code, BarChart3, PenTool, Lightbulb } from "lucide-react";
 import { useState, useEffect } from "react";
 import devices from "../assets/devices.svg";
 import andrometa_logo from "../assets/AndroMetaTransparent.png";
+import "./WhatWeDo.css";
 
 const services = [
   {
@@ -45,27 +46,6 @@ function NoiseOverlay() {
       style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         backgroundSize: "100px 100px",
-      }}
-    />
-  );
-}
-
-function FloatingShape({
-  delay = 0,
-  duration = 20,
-}: {
-  delay?: number;
-  duration?: number;
-}) {
-  return (
-    <div
-      className="absolute w-32 h-32 rounded-full blur-3xl opacity-20 animate-pulse"
-      style={{
-        background:
-          "linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.3))",
-        animation: `float ${duration}s ease-in-out infinite`,
-        animationDelay: `${delay}s`,
-        transform: "translateZ(0)",
       }}
     />
   );
@@ -328,36 +308,6 @@ export default function WhatWeDo({ openModal }: { openModal: () => void }) {
           </button>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-20px) rotate(180deg);
-          }
-        }
-
-        @keyframes borderSweep {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
     </div>
   );
 }
